@@ -131,7 +131,8 @@ public class DataPublisher {
         return endpointGroups.get(0).getRemainingQueueSize();
     }
     public double getQueueFilledPercentage() {
-        return 1.0 * endpointGroups.get(0).getRemainingQueueSize() / endpointGroups.get(0).getQueueSize();
+        long queueSize = endpointGroups.get(0).getQueueSize();
+        return 1.0 * (queueSize - endpointGroups.get(0).getRemainingQueueSize()) / queueSize;
     }
 
     /**
