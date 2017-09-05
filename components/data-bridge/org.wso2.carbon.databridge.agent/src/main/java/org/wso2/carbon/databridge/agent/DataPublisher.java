@@ -127,6 +127,12 @@ public class DataPublisher {
         dataEndpointAgent.addDataPublisher(this);
     }
 
+    public long getRemainingQueueSize() {
+        return endpointGroups.get(0).getRemainingQueueSize();
+    }
+    public double getQueueFilledPercentage() {
+        return 1.0 * endpointGroups.get(0).getRemainingQueueSize() / endpointGroups.get(0).getQueueSize();
+    }
 
     /**
      * This validates the input that are passed in the DataPublisher creation,

@@ -77,6 +77,14 @@ public class DataEndpointGroup implements DataEndpointFailureCallback {
         FAILOVER, LOADBALANCE
     }
 
+    public long getRemainingQueueSize() {
+        return eventQueue.getRingBufferRemainingSize();
+    }
+
+    public long getQueueSize() {
+        return eventQueue.getRingBufferSize();
+    }
+
     public DataEndpointGroup(HAType haType, DataEndpointAgent agent) {
         this.dataEndpoints = new ArrayList<>();
         this.haType = haType;
@@ -177,6 +185,13 @@ public class DataEndpointGroup implements DataEndpointFailureCallback {
         private RingBuffer<WrappedEventFactory.WrappedEvent> ringBuffer = null;
         private Disruptor<WrappedEventFactory.WrappedEvent> eventQueueDisruptor = null;
         private ExecutorService eventQueuePool = null;
+
+        public long getRingBufferRemainingSize() {
+            return this.ringBuffer.remainingCapacity();
+        }
+        public long getRingBufferSize() {
+            return this.ringBuffer.getBufferSize();
+        }
 
         EventQueue(int queueSize) {
             eventQueuePool = Executors.newCachedThreadPool(new DataBridgeThreadFactory("EventQueue"));
