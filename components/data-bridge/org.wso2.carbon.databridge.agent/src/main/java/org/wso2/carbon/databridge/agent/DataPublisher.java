@@ -126,6 +126,9 @@ public class DataPublisher {
         processEndpoints(dataEndpointAgent, receiverURLSet, authURLSet, username, password);
         dataEndpointAgent.addDataPublisher(this);
     }
+    public int getNumberOfQueues() {
+        return endpointGroups.size();
+    }
 
     public long getRemainingQueueSize() {
         return endpointGroups.get(0).getRemainingQueueSize();
